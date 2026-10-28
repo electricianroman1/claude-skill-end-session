@@ -7,8 +7,11 @@
 )
 $ErrorActionPreference = 'Stop'
 $procs = Get-CimInstance Win32_Process -Filter "Name='claude.exe'" | Where-Object { $_.CommandLine -match 'claude-code' }
-$root = Join-Path $env:LOCALAPPDATA 'Claude-Data\claude_pzs8sxrjxfjjc\claude-code-sessions'
-$sessions = Get-ChildItem $root -Recurse -Filter 'local_*.json' | ForEach-Object {
+# папка данных приложения (имя подпапки зависит от установки) — ищем автоматически
+$roots = @(Get-ChildItem (Join-Path $env:LOCALAPPDATA 'Claude-Data') -Directory -ErrorAction SilentlyContinue |
+    ForEach-Object { Join-Path $_.FullName 'claude-code-sessions' } | Where-Object { Test-Path $_ })
+if (-not $roots) { throw "Не найдена папка claude-code-sessions в $env:LOCALAPPDATA\Claude-Data" }
+$sessions = Get-ChildItem $roots -Recurse -Filter 'local_*.json' | ForEach-Object {
     $j = Get-Content $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
     [pscustomobject]@{ Id = $j.sessionId; Cli = $j.cliSessionId; Title = $j.title; Archived = $j.isArchived
         Created = [DateTimeOffset]::FromUnixTimeMilliseconds($j.createdAt).LocalDateTime }
