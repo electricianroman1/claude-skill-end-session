@@ -20,3 +20,11 @@ Windows, PowerShell 5.1+, десктопное приложение Claude (вк
 ## English
 
 A Claude Code skill for Windows that kills the `claude.exe` process of a chosen (or the current) session to free RAM (~250 MB each). Session history is kept; the process restarts when you reopen the session. Copy `end-session` to `%USERPROFILE%\.claude\skills\`. The script is dry-run unless `-Apply` is passed.
+
+## Лицензия / License
+
+MIT — пользуйтесь свободно. / MIT — free to use.
+
+## Лицензия / License
+
+MIT — пользуйтесь свободно. / MIT — free to use.
