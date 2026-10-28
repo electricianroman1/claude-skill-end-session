@@ -24,7 +24,3 @@ A Claude Code skill for Windows that kills the `claude.exe` process of a chosen 
 ## Лицензия / License
 
 MIT — пользуйтесь свободно. / MIT — free to use.
-
-## Лицензия / License
-
-MIT — пользуйтесь свободно. / MIT — free to use.
